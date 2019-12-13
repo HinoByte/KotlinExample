@@ -11,7 +11,7 @@ object UserHolder {
         email:String,
         password:String
     ):User{
-        if (map[email] == null) throw IllegalArgumentException("A user with this email already exists")
+        if (map[email] != null) throw IllegalArgumentException("A user with this email already exists")
         return User.makeUser(fullName, email=email, password = password)
             .also { user -> map[user.login] = user }
     }

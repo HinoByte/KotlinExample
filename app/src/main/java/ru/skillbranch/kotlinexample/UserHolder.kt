@@ -23,6 +23,7 @@ object UserHolder {
         }
     }
 
+
     fun registerUserByPhone(
         fullName: String,
         rawPhone: String
@@ -36,9 +37,9 @@ object UserHolder {
 //            for (j in 0..8)
 //           if (rawPhone[i] != numbers[j]) throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
 //        }
-        var s:String
-        s = rawPhone.replace("[^+\\d]".toRegex(),"")
-        if(!s.matches("[+]\\d{11}".toRegex())) throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
+        //var s:String
+        //s = rawPhone.replace("[^+\\d]".toRegex(),"")
+       // if(!s.matches("[+]\\d{11}".toRegex())) throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
 
 
         return User.makeUser(fullName, phone = rawPhone)

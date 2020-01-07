@@ -44,11 +44,7 @@ class ExampleUnitTest {
     fun register_user_fail_illegal_exist() {
         val holder = UserHolder
         holder.registerUser("John Doe", "John_Doe@unknown.com","testPass")
-        //holder.clearmap()
-       // holder.shooumap()
         holder.registerUser("John Doe", "John_Doe@unknown.com","testPass")
-      //  holder.shooumap()
-        holder.show()
     }
 
     @Test

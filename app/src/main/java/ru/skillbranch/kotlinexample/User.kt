@@ -23,10 +23,18 @@ class User private constructor(
         get() = listOfNotNull(firstName, lastName)
             .map { it.first().toUpperCase() }
             .joinToString(" ")
+
     private var phone: String? = null
         set(value){
-            field = value?.replace("[^+\\d]".toRegex(),"")
+            //field = value?.replace("[^+\\d]".toRegex(),"")
+            value?:return
+            val normal = value.replace("[^+\\d]".toRegex(),"")
+            if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not()){
+                    throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
+                }
+            field = normal
         }
+
     private var _login:String? = null
     internal var login: String
         set(value){
@@ -56,7 +64,7 @@ class User private constructor(
     //for phone
     constructor(
         firstName: String,
-        lastName: String,
+        lastName: String?,
         rawPhone:String
     ): this(firstName, lastName, rawPhone = rawPhone, meta= mapOf("auth" to "sms")){
         println("Secondary phone constructor")
@@ -133,7 +141,7 @@ class User private constructor(
             val (firstName, lastName) = fullname.fullNameToPair()
 
             return when{
-                !phone.isNullOrBlank() -> User(firstName, lastName)
+                !phone.isNullOrBlank() -> User(firstName, lastName, phone)
                 !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName, email, password)
                 else -> throw IllegalArgumentException("Email or phone must be not null or black")
             }

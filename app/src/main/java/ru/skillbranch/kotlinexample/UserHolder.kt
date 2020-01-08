@@ -16,11 +16,10 @@ object UserHolder {
     }
 
     fun loginUser(login: String, password: String): String?{
-        var l0gin = login
-        if(l0gin.count{it == '+'} == 1) l0gin =  login.replace("[^+\\d]".toRegex(),"")
+        var l0gin = login                                                                 //?
+        if(l0gin.count{it == '+'} == 1) l0gin = login.replace("[^+\\d]".toRegex(),"") //?
         return map[l0gin.trim()]?.run {
             if(checkPassword(password) || checkSMS(password)) this.userInfo
-           // if(accessCode == password) this.userInfo
             else null
         }
     }
@@ -36,7 +35,17 @@ object UserHolder {
     }
 
     fun requestAccessCode(login: String){
-
+        var l0gin = login
+        l0gin = login.replace("[^+\\d]".toRegex(),"")
+        var user:User? = map[l0gin]
+//        if(l0gin.count{it == '+'} == 1)
+//            User.makeUser(user)
+//
+        val fullName = user!!.fullName
+        User.makeUser(fullName, phone = l0gin)
+        //user = map[l0gin]
+  //      val code = user
+       // user!!.accessCode = code
     }
 
 }

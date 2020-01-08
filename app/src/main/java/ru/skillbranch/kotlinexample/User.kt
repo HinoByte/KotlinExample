@@ -15,7 +15,7 @@ class User private constructor(
     meta: Map<String, Any>? = null
 )  {
     val userInfo: String
-    private val fullName: String
+    internal val fullName: String
         get() = listOfNotNull(firstName, lastName)
             .joinToString(" ")
             .capitalize()
@@ -97,14 +97,7 @@ class User private constructor(
 
     fun checkPassword(pass:String) = encrypt(pass) == passwordHash
     fun checkSMS(pass:String) = pass == accessCode
-    //{
-//        val normal = login.replace("[^+\\d]".toRegex(),"")
-//        if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not())
-//            throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
-//
-//            return
-     //
-  //  }
+
 
     fun changePassword(oldPass:String, newPass:String){
         if(checkPassword(oldPass)) passwordHash = encrypt(newPass)
@@ -151,6 +144,8 @@ class User private constructor(
                 !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName, email, password)
                 else -> throw IllegalArgumentException("Email or phone must be not null or black")
             }
+
+
         }
 
 

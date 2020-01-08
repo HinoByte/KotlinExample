@@ -29,9 +29,9 @@ class User private constructor(
             //field = value?.replace("[^+\\d]".toRegex(),"")
             value?:return
             val normal = value.replace("[^+\\d]".toRegex(),"")
-            if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not()){
+            if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not())
                     throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
-                }
+
             field = normal
         }
 
@@ -80,11 +80,8 @@ class User private constructor(
         check(!firstName.isBlank()) { "FirstName must be not blank"}
         check(email.isNullOrBlank() || rawPhone.isNullOrBlank()) { "Email or phone must be not blank" }
 
-//        login.matches("[+]+\\d{11}".toRegex())
-
         phone = rawPhone
         login = email ?: phone!!
-
 
         userInfo = """
             firstName: $firstName
@@ -99,6 +96,15 @@ class User private constructor(
     }
 
     fun checkPassword(pass:String) = encrypt(pass) == passwordHash
+    fun checkSMS(pass:String) = pass == accessCode
+    //{
+//        val normal = login.replace("[^+\\d]".toRegex(),"")
+//        if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not())
+//            throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
+//
+//            return
+     //
+  //  }
 
     fun changePassword(oldPass:String, newPass:String){
         if(checkPassword(oldPass)) passwordHash = encrypt(newPass)

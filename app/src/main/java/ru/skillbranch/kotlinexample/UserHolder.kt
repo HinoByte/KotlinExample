@@ -1,6 +1,5 @@
 package ru.skillbranch.kotlinexample
 
-import androidx.core.text.isDigitsOnly
 import java.lang.IllegalArgumentException
 
 object UserHolder {
@@ -17,8 +16,10 @@ object UserHolder {
     }
 
     fun loginUser(login: String, password: String): String?{
-        return map[login.trim()]?.run {
-            if(checkPassword(password)) this.userInfo
+        var l0gin = login
+        if(l0gin.count{it == '+'} == 1) l0gin =  login.replace("[^+\\d]".toRegex(),"")
+        return map[l0gin.trim()]?.run {
+            if(checkPassword(password) || checkSMS(password)) this.userInfo
            // if(accessCode == password) this.userInfo
             else null
         }

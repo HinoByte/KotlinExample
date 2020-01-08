@@ -102,7 +102,6 @@ class ExampleUnitTest {
         """.trimIndent()
 
         val successResult =  holder.loginUser("john_doe@unknown.com", "testPass")
-//        holder.shooumap()
 
         Assert.assertEquals(expectedInfo, successResult)
     }
@@ -133,6 +132,7 @@ class ExampleUnitTest {
         holder.registerUser("John Doe", "John_Doe@unknown.com","testPass")
 
         val failResult =  holder.loginUser("john_doe@unknown.com", "test")
+
 
         Assert.assertNull(failResult)
     }

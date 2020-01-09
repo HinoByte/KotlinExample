@@ -35,9 +35,9 @@ object UserHolder {
     }
 
     fun requestAccessCode(login: String){
-        var l0gin = login
-        l0gin = login.replace("[^+\\d]".toRegex(),"")
-        var user:User? = map[l0gin]
+      //  var l0gin = login
+      //  l0gin = login.replace("[^+\\d]".toRegex(),"")
+     //   var user:User? = map[l0gin]
 //        if(l0gin.count{it == '+'} == 1)
 //            User.makeUser(user)
 //
@@ -56,12 +56,11 @@ object UserHolder {
 
 
     fun importUsers(list: List<String>): List<String>{
-        var list1 = list.joinToString()
-        var a = list1.split(";").toList()
-        val fullName = a[0]
-        val email = a[1]
-        var hashSalt = a[2]
-        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt).userInfo)
+//        val list = list.joinToString().split(";").toList()
+//        val fullName = list[0]
+//        val email = list[1]
+//        val hashSalt = list[2]
+//        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt).userInfo)
 //            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user TODO СОХРАНЕНИЕ
 //            else throw IllegalArgumentException("A user with this email already exists") }
     }

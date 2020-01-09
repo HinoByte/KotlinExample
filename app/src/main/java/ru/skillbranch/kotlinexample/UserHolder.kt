@@ -55,15 +55,17 @@ object UserHolder {
     }
 
 
- //   fun importUsers(list: List<String>): List<String>{
-//        val list = list.joinToString().split(";").toList()
-//        val fullName = list[0]
-//        val email = list[1]
-//        val hashSalt = list[2]
-//        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt).userInfo)
-//            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user TODO СОХРАНЕНИЕ
-//            else throw IllegalArgumentException("A user with this email already exists") }
+    fun importUsers(list: List<String>): List<User> {
+        val list = list.joinToString().split(";").toList()
+        val fullName = list[0]
+        val email = list[1]
+        val hashSalt = list[2]
+        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt))
     }
+}
+//            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user
+//            else throw IllegalArgumentException("A user with this email already exists") }
+
 //}
 
 

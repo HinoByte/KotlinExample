@@ -1,4 +1,8 @@
 package ru.skillbranch.kotlinexample.extensions
 
-class Iterable {
-}
+//fun List.dropLastUntil(predicate: (T) -> Boolean): List{
+//
+//
+//}
+
+

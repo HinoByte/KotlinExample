@@ -41,13 +41,30 @@ object UserHolder {
 //        if(l0gin.count{it == '+'} == 1)
 //            User.makeUser(user)
 //
-        val fullName = user!!.fullName
-        User.makeUser(fullName, phone = l0gin)
+//        val fullName = user!!.hashCode()
+//        println(map)
+//        map[l0gin]=User.makeUser(fullName, phone = l0gin)
+//        println("${map.entries}")
+
         //user = map[l0gin]
+      //  var firstName = "s"
+       // User(firstName, lastName, phone)
+
   //      val code = user
        // user!!.accessCode = code
     }
 
+
+    fun importUsers(list: List<String>): List<String>{
+        var list1 = list.joinToString()
+        var a = list1.split(";").toList()
+        val fullName = a[0]
+        val email = a[1]
+        var hashSalt = a[2]
+        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt).userInfo)
+//            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user TODO СОХРАНЕНИЕ
+//            else throw IllegalArgumentException("A user with this email already exists") }
+    }
 }
 
 

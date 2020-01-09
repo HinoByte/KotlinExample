@@ -15,7 +15,7 @@ class User private constructor(
     meta: Map<String, Any>? = null
 )  {
     val userInfo: String
-    internal val fullName: String
+    private val fullName: String
         get() = listOfNotNull(firstName, lastName)
             .joinToString(" ")
             .capitalize()
@@ -42,9 +42,10 @@ class User private constructor(
         }
         get() = _login!!
 
-    private val salt :String by lazy {
-        ByteArray(16).also { SecureRandom().nextBytes(it) }.toString()
-    }
+//    private val salt :String by lazy {
+//        ByteArray(16).also { SecureRandom().nextBytes(it) }.toString()
+//    }
+    private var salt :String = ByteArray(16).also { SecureRandom().nextBytes(it) }.toString()
     private lateinit var passwordHash: String
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
@@ -73,6 +74,22 @@ class User private constructor(
         accessCode = code
         sendAccessCodeToUser(rawPhone, code)
     }
+
+    constructor(
+        firstName: String,
+        lastName: String?,
+        email: String?,
+        _salt: String,
+        hash:String
+    ): this(firstName, lastName, email = email, meta= mapOf("src" to "csv")){
+        println("Secondary phone constructor")
+        passwordHash = hash
+        salt =_salt
+        print("")
+    }
+
+
+
 
     init{
         println("First init block, primary constructor was called")
@@ -105,6 +122,7 @@ class User private constructor(
     }
 
     private fun encrypt(password: String): String = salt.plus(password).md5()
+    private fun encryptImport(salt: String,hash: String) = salt.plus(hash).md5()
 
     private fun generateAccesCode(): String{
         val possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
@@ -135,12 +153,16 @@ class User private constructor(
             fullname: String,
             email: String? = null,
             password: String? = null,
-            phone: String? = null
+            phone: String? = null,
+            hashSalt:String?=null
         ): User {
             val (firstName, lastName) = fullname.fullNameToPair()
+            val (hash: String?,_salt:String?) = hashSalt?.HashSaltToPair() ?: null to null
+
 
             return when{
                 !phone.isNullOrBlank() -> User(firstName, lastName, phone)
+                !hashSalt.isNullOrBlank() -> User(firstName, lastName, email,hash!!,_salt!!)
                 !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName, email, password)
                 else -> throw IllegalArgumentException("Email or phone must be not null or black")
             }
@@ -160,8 +182,16 @@ class User private constructor(
                                 "current split result ${this@fullNameToPair}")
                     }
                 }
+        }
+
+        private fun String.HashSaltToPair() :Pair<String,String>{
+            return this.split(":")
+                .run{
+                    first() to last()
+                }
 
         }
+
     }
 
 }

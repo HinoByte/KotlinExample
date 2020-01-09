@@ -61,6 +61,7 @@ object UserHolder {
         val email = list[1]
         val hashSalt = list[2]
         return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt))
+
     }
 }
 //            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user

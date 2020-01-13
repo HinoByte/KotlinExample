@@ -6,6 +6,7 @@ import java.lang.StringBuilder
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.SecureRandom
+import kotlin.math.log
 
 class User private constructor(
     private val firstName: String,
@@ -120,12 +121,17 @@ class User private constructor(
         if(checkPassword(oldPass)) passwordHash = encrypt(newPass)
         else throw IllegalArgumentException("The entered password does not match the current password")
     }
-
+    fun changeSMSpassword():String{ //Повтор кода вторичного конструктора
+        val newPass = generateAccesCode()
+        passwordHash = encrypt(newPass)
+        accessCode = newPass
+        sendAccessCodeToUser(login, newPass)
+        return newPass
+    }
     private fun encrypt(password: String): String = salt.plus(password).md5()
     private fun encryptImport(salt: String,hash: String) = salt.plus(hash).md5()
 
-    //private
-    fun generateAccesCode(): String{
+    private fun generateAccesCode(): String{
         val possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
         return StringBuilder().apply {

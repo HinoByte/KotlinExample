@@ -35,8 +35,7 @@ object UserHolder {
     }
 
     fun requestAccessCode(login: String){
-        var l0gin = login
-        l0gin = login.replace("[^+\\d]".toRegex(),"")
+        var l0gin = login.replace("[^+\\d]".toRegex(),"")
      //   var user:User? = map[l0gin]
 //        if(l0gin.count{it == '+'} == 1)
 //            User.makeUser(user)
@@ -54,7 +53,9 @@ object UserHolder {
        // user!!.accessCode = code
        // print("${map[l0gin]?.accessCode}")
        // val k = map[l0gin]?.accessCode
-        map[l0gin]?.accessCode = map[l0gin]?.generateAccesCode()
+                                          //map[l0gin]?.accessCode = map[l0gin]?.generateAccesCode()
+        map[l0gin]?.accessCode = map[l0gin]?.changeSMSpassword()
+        //make user. со значениями из мапы.
         print("")
     }
 

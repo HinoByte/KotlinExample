@@ -35,8 +35,8 @@ object UserHolder {
     }
 
     fun requestAccessCode(login: String){
-      //  var l0gin = login
-      //  l0gin = login.replace("[^+\\d]".toRegex(),"")
+        var l0gin = login
+        l0gin = login.replace("[^+\\d]".toRegex(),"")
      //   var user:User? = map[l0gin]
 //        if(l0gin.count{it == '+'} == 1)
 //            User.makeUser(user)
@@ -52,6 +52,10 @@ object UserHolder {
 
   //      val code = user
        // user!!.accessCode = code
+       // print("${map[l0gin]?.accessCode}")
+       // val k = map[l0gin]?.accessCode
+        map[l0gin]?.accessCode = map[l0gin]?.generateAccesCode()
+        print("")
     }
 
 
@@ -61,7 +65,9 @@ object UserHolder {
         val email = list[1]
         val hashSalt = list[2]
         return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt))
-
+            .also {
+                  it
+            }
     }
 }
 //            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user

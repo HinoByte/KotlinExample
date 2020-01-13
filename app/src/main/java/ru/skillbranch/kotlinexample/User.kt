@@ -124,7 +124,8 @@ class User private constructor(
     private fun encrypt(password: String): String = salt.plus(password).md5()
     private fun encryptImport(salt: String,hash: String) = salt.plus(hash).md5()
 
-    private fun generateAccesCode(): String{
+    //private
+    fun generateAccesCode(): String{
         val possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
         return StringBuilder().apply {

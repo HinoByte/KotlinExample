@@ -6,7 +6,6 @@ import java.lang.StringBuilder
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.SecureRandom
-import kotlin.math.log
 
 class User private constructor(
     private val firstName: String,
@@ -16,7 +15,7 @@ class User private constructor(
     meta: Map<String, Any>? = null
 )  {
     val userInfo: String
-    private val fullName: String
+    val fullName: String
         get() = listOfNotNull(firstName, lastName)
             .joinToString(" ")
             .capitalize()
@@ -70,10 +69,11 @@ class User private constructor(
         rawPhone:String
     ): this(firstName, lastName, rawPhone = rawPhone, meta= mapOf("auth" to "sms")){
         println("Secondary phone constructor")
-        val code = generateAccesCode()
-        passwordHash = encrypt(code)
-        accessCode = code
-        sendAccessCodeToUser(rawPhone, code)
+//        val code = generateAccesCode()
+//        passwordHash = encrypt(code)
+//        accessCode = code
+//        sendAccessCodeToUser(rawPhone, code)
+        makeAccessCode()
     }
 
     constructor(
@@ -121,12 +121,12 @@ class User private constructor(
         if(checkPassword(oldPass)) passwordHash = encrypt(newPass)
         else throw IllegalArgumentException("The entered password does not match the current password")
     }
-    fun changeSMSpassword():String{ //Повтор кода вторичного конструктора
-        val newPass = generateAccesCode()
-        passwordHash = encrypt(newPass)
-        accessCode = newPass
-        sendAccessCodeToUser(login, newPass)
-        return newPass
+    fun makeAccessCode():String{
+        val code = generateAccesCode()
+        passwordHash = encrypt(code)
+        accessCode = code
+        sendAccessCodeToUser(login, code)
+        return code
     }
     private fun encrypt(password: String): String = salt.plus(password).md5()
     private fun encryptImport(salt: String,hash: String) = salt.plus(hash).md5()

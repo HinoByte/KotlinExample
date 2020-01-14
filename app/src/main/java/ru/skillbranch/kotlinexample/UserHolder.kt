@@ -35,14 +35,14 @@ object UserHolder {
     }
 
     fun requestAccessCode(login: String){
-        var l0gin = login.replace("[^+\\d]".toRegex(),"")
+        val l0gin = login.replace("[^+\\d]".toRegex(),"")
      //   var user:User? = map[l0gin]
 //        if(l0gin.count{it == '+'} == 1)
 //            User.makeUser(user)
 //
 //        val fullName = user!!.hashCode()
 //        println(map)
-//        map[l0gin]=User.makeUser(fullName, phone = l0gin)
+      //  map[l0gin]=User.makeUser(fullName, phone = l0gin)
 //        println("${map.entries}")
 
         //user = map[l0gin]
@@ -53,10 +53,14 @@ object UserHolder {
        // user!!.accessCode = code
        // print("${map[l0gin]?.accessCode}")
        // val k = map[l0gin]?.accessCode
-                                          //map[l0gin]?.accessCode = map[l0gin]?.generateAccesCode()
-        map[l0gin]?.accessCode = map[l0gin]?.changeSMSpassword()
+                                          //map[l0gin]?.accessCode = map[l0gin]?.generateAccesCode() //OK v1
+                    map[l0gin]?.accessCode = map[l0gin]?.makeAccessCode() //OK v2
+        //map[l0gin].makeUser(fullName, email=email, password = password)
+     //   val k = User.makeUser(map[l0gin]!!.fullName, phone = l0gin)
         //make user. со значениями из мапы.
-        print("")
+       // print("${k.userInfo}")
+       // println("")
+       // map[l0gin] = User.makeUser(map[l0gin]!!.fullName, phone = l0gin)
     }
 
 
@@ -65,10 +69,12 @@ object UserHolder {
         val fullName = list[0]
         val email = list[1]
         val hashSalt = list[2]
-        return listOf(User.makeUser(fullName, email=email, hashSalt = hashSalt))
-            .also {
-                  it
-            }
+        val user = User.makeUser(fullName, email=email, hashSalt = hashSalt)
+        if (!map.containsKey(user.login)) map[user.login] = user
+        return listOf(user)
+            // .also {
+            //      it
+          //  }
     }
 }
 //            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user

@@ -30,8 +30,8 @@ class User private constructor(
             value?:return
             val normal = value.replace("[^+\\d]".toRegex(),"")
           //  if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not())
-            if(!((normal.length == 12) && (normal[0] == '+')))
-                    throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
+         //   if(!((normal.length == 12) && (normal[0] == '+')))
+              //      throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
 
             field = normal
         }

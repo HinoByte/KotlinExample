@@ -81,8 +81,9 @@ class User private constructor(
         lastName: String?,
         email: String?,
         _salt: String,
-        hash:String
-    ): this(firstName, lastName, email = email, meta= mapOf("src" to "csv")){
+        hash:String,
+        rawPhone: String?
+    ): this(firstName, lastName, email = email, rawPhone = rawPhone, meta= mapOf("src" to "csv")){
         println("Secondary phone constructor")
         passwordHash = hash
         salt =_salt
@@ -169,7 +170,7 @@ class User private constructor(
 
             return when{
                 !phone.isNullOrBlank() -> User(firstName, lastName, phone)
-                !hashSalt.isNullOrBlank() -> User(firstName, lastName, email,hash!!,_salt!!)
+                !hashSalt.isNullOrBlank() -> User(firstName, lastName, email,hash!!,_salt!!, phone)
                 !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName, email, password)
                 else -> throw IllegalArgumentException("Email or phone must be not null or black")
             }

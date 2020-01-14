@@ -15,7 +15,7 @@ class User private constructor(
     meta: Map<String, Any>? = null
 )  {
     val userInfo: String
-    val fullName: String
+    private val fullName: String
         get() = listOfNotNull(firstName, lastName)
             .joinToString(" ")
             .capitalize()

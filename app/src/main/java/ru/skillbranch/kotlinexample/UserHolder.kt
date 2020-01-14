@@ -65,7 +65,7 @@ object UserHolder {
 
 
     fun importUsers(list: List<String>): List<User> {
-        val list = list.joinToString().split(";").toList()
+        val list = listOf(list.joinToString().split(";"))
         val fullName = list[0]
         val email = list[1]
         val hashSalt = list[2]

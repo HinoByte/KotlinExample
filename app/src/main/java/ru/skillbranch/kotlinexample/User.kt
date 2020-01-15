@@ -31,9 +31,9 @@ class User private constructor(
             val normal = value.replace("[^+\\d]".toRegex(),"")
           //  if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1)).not())
          //   if(!((normal.length == 12) && (normal[0] == '+')))
-            var k:List<Char> = listOf(normal[2])
-            for (i in 1..12) k =listOf(normal[i])
-            if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1) && for ((i in 1..12) listOf(normal[i])).not()))
+          ////  var k:List<Char> = listOf(normal[2])
+         //   for (i in 1..12) k =listOf(normal[i])
+           // if(((normal.length == 12) && (normal[0] == '+') && (normal.count{it == '+'} == 1) && for ((i in 1..12) listOf(normal[i])).not()))
               //      throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
 
             field = normal

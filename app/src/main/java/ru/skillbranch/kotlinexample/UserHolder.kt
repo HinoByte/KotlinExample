@@ -67,9 +67,11 @@ object UserHolder {
     fun importUsers(list: List<String>): List<User> {
         val list = list.joinToString().split(";").toList()
         val fullName = list[0]
-        val email = list[1]
+        var email:String? = list[1]
+        if (email!!.isBlank()) email = null
         val hashSalt = list[2]
-        val phone = list[3]
+        var phone:String? = list[3]
+        if (phone!!.isBlank()) phone = null
         val user = User.makeUser(fullName, email=email, hashSalt = hashSalt, phone = phone)
         if (!map.containsKey(user.login)) map[user.login] = user
         return listOf(user)

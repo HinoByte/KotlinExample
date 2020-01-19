@@ -171,7 +171,7 @@ class User private constructor(
             println("fullname: $fullname email: $email password: $password phone: $phone hashSalt: $hashSalt")
             val (firstName, lastName) = fullname.fullNameToPair()
             println("$firstName $lastName")
-            val (hash: String?,_salt:String?) = hashSalt?.HashSaltToPair() ?: null to null
+            val (_salt: String?,hash:String?) = hashSalt?.HashSaltToPair() ?: null to null
 
 
             return when{

@@ -73,7 +73,8 @@ object UserHolder {
         if (phone!!.isBlank()) phone = null
         if (email!!.isBlank()) email = null
         val user = User.makeUser(fullName, email=email, hashSalt = hashSalt, phone = phone)
-        if (!map.containsKey(user.login)) map[user.login] = user
+        //if (!map.containsKey(user.login))
+            map[user.login] = user
         return listOf(user)
             // .also {
             //      it

@@ -176,7 +176,7 @@ class ExampleUnitTest {
     fun import_user_csv_server_1() {
         val source = listOf("  John    Doe ;JohnDoe@yandex.ru;[B@7591083d:c6adb4becdc64e92857e1e2a0fd6af84;;")
         val source1 = listOf("  John    Doe ;;[B@7591083d:c6adb4becdc64e92857e1e2a0fd6af84;+79850777777;")
-        val result = UserHolder.importUsers(source1)[0].userInfo
+        val result = UserHolder.importUsers(source)[0].userInfo
         val expectedInfo = """
             firstName: John
             lastName: Doe

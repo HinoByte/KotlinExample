@@ -1,7 +1,6 @@
 package ru.skillbranch.kotlinexample
 
 import java.lang.IllegalArgumentException
-import java.lang.reflect.Array.set
 
 object UserHolder {
     private val map = mutableMapOf<String, User>()

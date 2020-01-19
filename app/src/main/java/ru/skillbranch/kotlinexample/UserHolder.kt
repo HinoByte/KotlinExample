@@ -1,6 +1,7 @@
 package ru.skillbranch.kotlinexample
 
 import java.lang.IllegalArgumentException
+import java.lang.reflect.Array.set
 
 object UserHolder {
     private val map = mutableMapOf<String, User>()
@@ -68,10 +69,10 @@ object UserHolder {
         val list = list.joinToString().split(";").toList()
         val fullName = list[0]
         var email:String? = list[1]
-        if (email!!.isBlank()) email = null
         val hashSalt = list[2]
         var phone:String? = list[3]
         if (phone!!.isBlank()) phone = null
+        if (email!!.isBlank()) email = null
         val user = User.makeUser(fullName, email=email, hashSalt = hashSalt, phone = phone)
         if (!map.containsKey(user.login)) map[user.login] = user
         return listOf(user)
@@ -79,6 +80,7 @@ object UserHolder {
             //      it
           //  }
     }
+
 }
 //            .also { user -> if (!map.containsKey(user.login)) map[user.login] = user
 //            else throw IllegalArgumentException("A user with this email already exists") }

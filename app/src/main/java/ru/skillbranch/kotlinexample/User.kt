@@ -168,7 +168,10 @@ class User private constructor(
             phone: String? = null,
             hashSalt:String?=null
         ): User {
+            println(fullname)
             val (firstName, lastName) = fullname.fullNameToPair()
+            println(firstName)
+            println(lastName)
             val (hash: String?,_salt:String?) = hashSalt?.HashSaltToPair() ?: null to null
 
 

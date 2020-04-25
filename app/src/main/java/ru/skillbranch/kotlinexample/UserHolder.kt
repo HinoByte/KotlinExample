@@ -66,6 +66,7 @@ object UserHolder {
 
     fun importUsers(list: List<String>): List<User> {
         var listUsers: MutableList<User> = mutableListOf()
+        println(list)
         val list = list.joinToString().split(";").toList()
         for (i in 0 until list.size-1 step 4) {
             val fullName = list[i]

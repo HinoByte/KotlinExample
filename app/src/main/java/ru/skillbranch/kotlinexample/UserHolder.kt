@@ -65,19 +65,36 @@ object UserHolder {
 
 
     fun importUsers(list: List<String>): List<User> {
+        var listUsers: MutableList<User> = mutableListOf()
         val list = list.joinToString().split(";").toList()
-        val fullName = list[0]
-        var email:String? = list[1]
-        val hashSalt = list[2]
-        var phone:String? = list[3]
-        if (phone!!.isBlank()) phone = null
-        if (email!!.isBlank()) email = null
-        val user = User.makeUser(fullName, email=email, hashSalt = hashSalt, phone = phone)
-        if (!map.containsKey(user.login)) map[user.login] = user
-        return listOf(user)
-            // .also {
-            //      it
-          //  }
+        for (i in 0 until list.size-1 step 4) {
+            val fullName = list[i]
+            var email: String? = list[i+1]
+            val hashSalt = list[i+2]
+            var phone: String? = list[i+3]
+            if (phone!!.isBlank()) phone = null
+            if (email!!.isBlank()) email = null
+            val user = User.makeUser(fullName, email = email, hashSalt = hashSalt, phone = phone)
+            if (!map.containsKey(user.login)) map[user.login] = user
+            listUsers.add(user)
+        }
+        return listUsers
+//        val list = list.joinToString().split(";").toList()
+//
+//            val fullName = list[0]
+//            var email: String? = list[1]
+//            val hashSalt = list[2]
+//            var phone: String? = list[3]
+//            if (phone!!.isBlank()) phone = null
+//            if (email!!.isBlank()) email = null
+//
+//            val user = User.makeUser(fullName, email = email, hashSalt = hashSalt, phone = phone)
+//
+//        if (!map.containsKey(user.login)) map[user.login] = user
+//        return listOf(user)
+//             .also {
+//                  it
+//            }
     }
 
 }
